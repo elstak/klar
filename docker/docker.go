@@ -238,7 +238,7 @@ func (i *Image) Pull() error {
 		return err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusUnauthorized {
+	if resp.StatusCode >=400 && resp.StatusCode <= 499 {
 		i.Token, err = i.requestToken(resp)
 		io.Copy(ioutil.Discard, resp.Body)
 		if err != nil {
